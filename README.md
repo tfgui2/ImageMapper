@@ -1,2 +1,2 @@
 # ImageMapper
-c# imageMapper
+qt imageMapper
