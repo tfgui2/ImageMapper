@@ -14,7 +14,8 @@ void MyGraphicsScene::updateDrawRect(QPointF scenePos)
         QRectF r;
         r.setTopLeft(drawRectPos);
         r.setBottomRight(scenePos);
-        drawRect->setRect(r.normalized());
+        QRectF nr = r.normalized();
+        drawRect->setRect(nr);
     }
 }
 
@@ -45,5 +46,7 @@ void MyGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     QPointF scenePos = event->scenePos();
     updateDrawRect(scenePos);
+
+    // create area
     resetDrawRect();
 }

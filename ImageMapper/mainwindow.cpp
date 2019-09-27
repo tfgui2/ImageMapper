@@ -14,3 +14,13 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_actionSelect_triggered()
+{
+
+}
+
+void MainWindow::on_actionDraw_triggered()
+{
+
+}

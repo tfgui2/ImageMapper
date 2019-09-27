@@ -7,9 +7,6 @@
 class MyGraphicsScene : public QGraphicsScene
 {
     Q_OBJECT
-    void resetDrawRect();
-
-    void updateDrawRect(QPointF scenePos);
 
 public:
     explicit MyGraphicsScene(QObject *parent = 0);
@@ -21,6 +18,9 @@ public slots:
 protected:
     QGraphicsRectItem *drawRect = nullptr;
     QPointF drawRectPos;
+    void resetDrawRect();
+    void updateDrawRect(QPointF scenePos);
+
 
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
