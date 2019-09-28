@@ -7,7 +7,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->graphicsView->setScene(new MyGraphicsScene);
+    myscene = new MyGraphicsScene;
+    ui->graphicsView->setScene(myscene);
+    ui->graphicsView->setSceneRect(ui->graphicsView->rect());
 }
 
 MainWindow::~MainWindow()
@@ -17,10 +19,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionSelect_triggered()
 {
-
+    myscene->setMode(EditMode::Select);
 }
 
 void MainWindow::on_actionDraw_triggered()
 {
-
+    myscene->setMode(EditMode::Draw);
 }

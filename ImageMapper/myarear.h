@@ -1,18 +1,19 @@
 #ifndef MYAREAR_H
 #define MYAREAR_H
 
-#include <QObject>
-#include <QWidget>
+#include <QGraphicsRectItem>
 
-class MyArear : public QWidget
+class MyArea : public QGraphicsRectItem
 {
-    Q_OBJECT
 public:
-    explicit MyArear(QWidget *parent = 0);
+    explicit MyArea(QGraphicsItem *parent = 0);
+    QString toString();
+    void fromString(QString str);
 
-signals:
+protected:
+    virtual QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
-public slots:
+
 };
 
 #endif // MYAREAR_H

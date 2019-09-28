@@ -5,7 +5,7 @@
 
 MyGraphicsScene::MyGraphicsScene(QObject *parent) : QGraphicsScene(parent)
 {
-
+    editmode = Select;
 }
 
 void MyGraphicsScene::updateDrawRect(QPointF scenePos)
@@ -30,23 +30,51 @@ void MyGraphicsScene::resetDrawRect()
 
 void MyGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    resetDrawRect();
-    drawRectPos = event->scenePos();
-    drawRect = new QGraphicsRectItem(QRectF());
-    addItem(drawRect);
+    if (editmode == Draw) {
+        resetDrawRect();
+        drawRectPos = event->scenePos();
+        drawRect = new QGraphicsRectItem(QRectF());
+        addItem(drawRect);
+        return;
+    }
+
+    QGraphicsScene::mousePressEvent(event);
 }
 
 void MyGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    QPointF scenePos = event->scenePos();
-    updateDrawRect(scenePos);
+    if (editmode == Draw) {
+        QPointF scenePos = event->scenePos();
+        updateDrawRect(scenePos);
+        return;
+    }
+
+    QGraphicsScene::mouseMoveEvent(event);
 }
 
 void MyGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    QPointF scenePos = event->scenePos();
-    updateDrawRect(scenePos);
+    if (editmode == Draw) {
+        QPointF scenePos = event->scenePos();
+        updateDrawRect(scenePos);
 
-    // create area
-    resetDrawRect();
+        if (drawRect) {
+            QRectF r = drawRect->rect();
+            addArea(r);
+        }
+
+        // create area
+        resetDrawRect();
+        return;
+    }
+
+    QGraphicsScene::mouseReleaseEvent(event);
+}
+
+void MyGraphicsScene::addArea(QRectF r)
+{
+    MyArea *a = new MyArea;
+    a->setRect(r);
+    areas.append(a);
+    addItem(a);
 }

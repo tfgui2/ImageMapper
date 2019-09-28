@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QGraphicsScene>
+#include "myarear.h"
+#include "enum.h"
 
 class MyGraphicsScene : public QGraphicsScene
 {
@@ -14,6 +16,7 @@ public:
 signals:
 
 public slots:
+    void setMode(EditMode mode) { editmode = mode; }
 
 protected:
     QGraphicsRectItem *drawRect = nullptr;
@@ -25,6 +28,11 @@ protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+
+private:
+    QList<MyArea*> areas;
+    EditMode editmode;
+    void addArea(QRectF r);
 };
 
 #endif // MYGRAPHICSSCENE_H
